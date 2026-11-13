@@ -40,7 +40,6 @@ export default function Catalog() {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
-      {/* Header & Search Bar */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
@@ -72,12 +71,9 @@ export default function Catalog() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-        {/* LOADING STATE */}
         {loading && <ProductSkeleton count={8} />}
 
-        {/* ERROR STATE */}
         {!loading && error && (
           <div className="max-w-md mx-auto my-12 p-6 bg-red-50 border border-red-200 rounded-2xl text-center">
             <p className="text-red-700 font-bold text-lg">Oops! Terjadi Kesalahan</p>
@@ -91,7 +87,6 @@ export default function Catalog() {
           </div>
         )}
 
-        {/* EMPTY STATE */}
         {!loading && !error && products.length === 0 && (
           <div className="max-w-md mx-auto my-16 text-center">
             <div className="text-5xl mb-4">🔍</div>
@@ -109,7 +104,6 @@ export default function Catalog() {
           </div>
         )}
 
-        {/* SUCCESS STATE */}
         {!loading && !error && products.length > 0 && (
           <>
             <p className="text-sm text-gray-500 mb-4">
@@ -140,7 +134,6 @@ export default function Catalog() {
         )}
       </main>
 
-      {/* MODAL DETAIL */}
       <ProductDetailModal
         product={selectedProduct}
         onClose={() => setSelectedProduct(null)}
