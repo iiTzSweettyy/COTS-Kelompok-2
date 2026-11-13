@@ -4,7 +4,7 @@ import { Product } from '../types/product';
 import { fetchProductsApi } from '../service/productService';
 import { useDebounce } from '../hooks/useDebounce';
 import { ProductCard } from '../components/Card';
-import { ProductDetailModal } from '../components/DetailModal';
+import { DetailModal } from '../components/DetailModal';
 import { ProductSkeleton } from '../components/Skeleton';
 
 export default function Catalog() {
