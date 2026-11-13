@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ProductsResponse } from '../types/product';
+import type { ProductsResponse } from '../../types/product';
 
 const BASE_URL = 'https://dummyjson.com/products';
 
