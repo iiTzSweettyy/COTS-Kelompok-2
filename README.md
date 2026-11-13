@@ -1,78 +1,57 @@
-# React + TypeScript + Vite
+# VOGIA — E-commerce Front-end
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Front-end for **VOGIA**, a fictional fashion & lifestyle brand. Built as the
+web programming course project (COTS / Kelompok 2).
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** + **TypeScript** (strict, `tsc -b`)
+- **Vite 8** dev server & bundler
+- **Tailwind CSS v4** (`@tailwindcss/vite`, design tokens in `src/index.css`)
+- **React Router v7** for client-side routing
+- **Google Fonts** — Playfair Display (headings) + Inter (body), with offline fallbacks
 
-## React Compiler
+## Getting Started
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # tsc -b && vite build
+npm run lint     # eslint .
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Routes
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Route              | Page                                                                 |
+| ------------------ | -------------------------------------------------------------------- |
+| `/`                | Home — hero, featured pieces, craftsmanship, collections, membership |
+| `/shop`            | Product grid with category filter and search (`?category=`, `?q=`)   |
+| `/product/:slug`   | Product detail — gallery, colour/size, quantity, add to bag          |
+| `/#story` `/#collections` `/#join` | In-page anchors from the header navigation              |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Project Structure
 
 ```
+src/
+  App.tsx                    # route table + scroll manager
+  components/
+    layout/Header.tsx        # logo, nav, search, account, cart badge
+    layout/Footer.tsx        # newsletter, link columns, socials
+    sections/                # Hero, FeaturedPieces, Craftsmanship,
+                             # Collections, InnerCircle
+    Placeholder.tsx          # generated SVG/gradient artwork
+    ProductCard.tsx          # reusable product card
+    icons.tsx                # inline SVG icon set
+  data/products.ts           # catalogue data (9 products, 3 categories)
+  pages/                     # Home, Shop, ProductDetail
+  store/                     # cart context (in-memory)
+```
+
+## Notes
+
+- **Images are placeholders.** Every photo slot renders a generated
+  SVG/gradient via `src/components/Placeholder.tsx`, so the app has zero
+  external image dependencies. Replace a slot with a real `<img>` when final
+  photography is ready.
+- **Cart state is in-memory** (React context) and resets on page refresh.
+- Product copy, prices and categories live in `src/data/products.ts`.
